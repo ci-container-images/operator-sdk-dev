@@ -15,5 +15,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Check docker engine 
+      run: docker info 
+
+    - name: Check ENV variables
+      run: env
     - name: Build the Docker image
       run: docker build . --file ansible/Dockerfile --tag operator-sdk-dev:ansible
+

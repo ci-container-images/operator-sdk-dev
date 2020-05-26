@@ -1,7 +1,7 @@
 FROM quay.io/operator-framework/ansible-operator:v0.17.0
 
-RUN mkdir /dev
+RUN mkdir /workspace
 
-WORKDIR /dev
+WORKDIR /workspace
 
 CMD "/bin/bash"
