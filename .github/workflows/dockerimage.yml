@@ -25,9 +25,10 @@ jobs:
       run: docker login $REGISTRY  -u ${{ secrets.USERNAME }} -p ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build the Docker image
-      run: docker build . --file ansible/Dockerfile --tag $REGISTRY/$GITHUB_REPOSITORY_OWNER/operator-sdk-dev:ansible
+      run: docker build . --file ansible/Dockerfile --tag $REGISTRY/$GITHUB_REPOSITORY/ansible:v0.17.0
 
     - name: Push image
-      run: docker push $REGISTRY/$GITHUB_REPOSITORY_OWNER/operator-sdk-dev:ansible
+      run: docker push $REGISTRY/$GITHUB_REPOSITORY/ansible:v0.17.0
+
 
 
