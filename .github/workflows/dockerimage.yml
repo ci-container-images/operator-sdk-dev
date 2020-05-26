@@ -6,6 +6,8 @@ on:
     paths:
     - '**/ansible/Dockerfile'
 
+env:
+  REGISTRY: docker.pkg.github.com
 
 jobs:
 
@@ -16,9 +18,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: ENV
+      run: env 
+ 
     - name: Login to github docker registry 
-      run: docker login ${{ secrets.REGISTRY }}  -u ${{ secrets.USERNAME }} -p ${{ secrets.GITHUB_TOKEN }}
+      run: docker login $REGISTRY  -u ${{ secrets.USERNAME }} -p ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build the Docker image
-      run: docker build . --file ansible/Dockerfile --tag docker.pkg.github.com/$GITHUB_REPOSITORY_OWNER/operator-sdk-dev:ansible
+      run: docker build . --file ansible/Dockerfile --tag $REGISTRY/$GITHUB_REPOSITORY_OWNER/operator-sdk-dev:ansible
+
+    - name: Push image
+      run: docker push $REGISTRY/$GITHUB_REPOSITORY_OWNER/operator-sdk-dev:ansible
+
 
