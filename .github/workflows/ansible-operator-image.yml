@@ -1,34 +1,28 @@
-name: Docker Image CI
+name: Build ansible operator DEV environment docker image
 
-
+env:
+  REGISTRY: docker.pkg.github.com
+  IMAGE_NAME: ansible
+  IMAGE_TAG: v0.17.0
 on:
   push:
     paths:
     - '**/ansible/Dockerfile'
 
-env:
-  REGISTRY: docker.pkg.github.com
-
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    
-    - name: ENV
-      run: env 
- 
+
     - name: Login to github docker registry 
       run: docker login $REGISTRY  -u ${{ secrets.USERNAME }} -p ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build the Docker image
-      run: docker build . --file ansible/Dockerfile --tag $REGISTRY/$GITHUB_REPOSITORY/ansible:v0.17.0
+      run: docker build . --file ansible/Dockerfile --tag $REGISTRY/$GITHUB_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
 
     - name: Push image
-      run: docker push $REGISTRY/$GITHUB_REPOSITORY/ansible:v0.17.0
+      run: docker push $REGISTRY/$GITHUB_REPOSITORY/$IMAGE_NAME:$IMAGE_TAG
 
 
 
