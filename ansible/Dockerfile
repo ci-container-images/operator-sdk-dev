@@ -14,3 +14,5 @@ RUN mkdir /workspace && \
 WORKDIR /workspace
 
 ENTRYPOINT ["/bin/bash"]
+
+CMD  "operator-sdk run --local"
